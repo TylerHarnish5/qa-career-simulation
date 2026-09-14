@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Shop · Harbor & Pine{% endblock %}
+{% block content %}
+<section class="catalog-intro"><p class="eyebrow">The collection</p><h1>Good gear, close at hand.</h1><p>Purposeful pieces for wherever the day opens up.</p></section>
+<form class="filters" method="get">
+  <label class="search-label">Search products<input name="q" value="{{ search_term }}" placeholder="Try “mug” or “trail”"></label>
+  <label>Category<select name="category"><option value="">All categories</option>{% for category in categories %}<option value="{{ category.category }}" {% if category.category == selected_category %}selected{% endif %}>{{ category.category }}</option>{% endfor %}</select></label>
+  <button class="button secondary" type="submit">Apply</button>
+  {% if search_term or selected_category %}<a class="clear-link" href="{{ url_for('products') }}">Clear filters</a>{% endif %}
+</form>
+<p class="result-count">{{ products|length }} product{% if products|length != 1 %}s{% endif %} found</p>
+{% if products %}
+  <section class="product-grid">
+  {% for product in products %}
+    <article class="product-card">
+      <a class="product-art art-{{ product.id }}" href="{{ url_for('product_detail', product_id=product.id) }}"><span>{{ product.image_label }}</span></a>
+      <div class="product-card-content"><p class="category">{{ product.category }}</p><h2><a href="{{ url_for('product_detail', product_id=product.id) }}">{{ product.name }}</a></h2><p class="description">{{ product.description }}</p><div class="card-bottom"><p class="price">{{ product.price_cents|money }}</p>{% if product.stock > 0 %}<span class="stock">{{ product.stock }} in stock</span>{% else %}<span class="sold-out">Sold out</span>{% endif %}</div></div>
+    </article>
+  {% endfor %}
+  </section>
+{% else %}<div class="empty-state"><h2>No products found</h2><p>Try a different search or clear the current filters.</p></div>{% endif %}
+{% endblock %}

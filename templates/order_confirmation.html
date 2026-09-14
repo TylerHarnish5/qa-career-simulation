@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block title %}Order confirmed · Harbor & Pine{% endblock %}
+{% block content %}
+<section class="confirmation"><div class="checkmark">✓</div><p class="eyebrow">Order confirmed</p><h1>Thank you for your order.</h1><p>Your order <strong>#{{ order_id }}</strong> has been received. Your total is <strong>{{ total|money }}</strong>.</p><div class="confirmation-actions"><a class="button primary" href="{{ url_for('order_history') }}">View order history</a><a class="button secondary" href="{{ url_for('products') }}">Keep shopping</a></div></section>
+{% endblock %}

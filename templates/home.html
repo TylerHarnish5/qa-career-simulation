@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Harbor & Pine Outfitters{% endblock %}
+{% block content %}
+<section class="hero">
+  <div>
+    <p class="eyebrow">Field goods for the everyday outside</p>
+    <h1>Pack light.<br>Stay a while.</h1>
+    <p class="hero-copy">Considered gear for walks that wander, weekends that stretch, and everything between.</p>
+    <a class="button primary" href="{{ url_for('products') }}">Shop the collection</a>
+  </div>
+  <div class="hero-mark"><div class="sun"></div><div class="mountain one"></div><div class="mountain two"></div><div class="trees">▲ ▲ ▲</div></div>
+</section>
+<section class="section-heading">
+  <div><p class="eyebrow">Fresh from the shelf</p><h2>Small things, well made</h2></div>
+  <a href="{{ url_for('products') }}">View all products →</a>
+</section>
+<section class="product-grid">
+  {% for product in featured %}
+    <article class="product-card">
+      <a class="product-art art-{{ product.id }}" href="{{ url_for('product_detail', product_id=product.id) }}"><span>{{ product.image_label }}</span></a>
+      <div class="product-card-content"><p class="category">{{ product.category }}</p><h3><a href="{{ url_for('product_detail', product_id=product.id) }}">{{ product.name }}</a></h3><p class="price">{{ product.price_cents|money }}</p></div>
+    </article>
+  {% endfor %}
+</section>
+{% endblock %}

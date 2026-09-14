@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Checkout · Harbor & Pine{% endblock %}
+{% block content %}
+<section class="page-title"><p class="eyebrow">Almost there</p><h1>Checkout</h1></section>
+<form method="post" class="checkout-layout">
+  <section class="checkout-fields"><h2>Shipping details</h2><div class="form-grid"><label class="wide">Recipient name<input name="customer_name" required value="{{ form_data.customer_name }}"></label><label class="wide">Email address<input type="email" name="email" required value="{{ form_data.email }}"></label><label class="wide">Street address<input name="address" required value="{{ form_data.address }}"></label><label>City<input name="city" required value="{{ form_data.city }}"></label><label>Postal code<input name="postal_code" required value="{{ form_data.postal_code }}"></label></div><fieldset><legend>Shipping method</legend><label class="radio"><input type="radio" name="shipping_method" value="standard" {% if selected_shipping == 'standard' %}checked{% endif %}> <span><strong>Standard</strong><small>Free at $50+; otherwise $6.00</small></span></label><label class="radio"><input type="radio" name="shipping_method" value="express" {% if selected_shipping == 'express' %}checked{% endif %}> <span><strong>Express</strong><small>$15.00 flat rate</small></span></label></fieldset></section>
+  <aside class="order-summary checkout-summary"><h2>Your order</h2>{% for line in lines %}<div class="mini-line"><span>{{ line.product.name }} × {{ line.quantity }}</span><span>{{ line.line_total|money }}</span></div>{% endfor %}<hr><div><span>Subtotal</span><strong>{{ subtotal|money }}</strong></div><div><span>Shipping</span><strong>{{ shipping|money }}</strong></div><div class="grand-total"><span>Total</span><strong>{{ total|money }}</strong></div><button class="button primary full" type="submit">Place order</button></aside>
+</form>
+{% endblock %}

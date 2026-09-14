@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Your cart · Harbor & Pine{% endblock %}
+{% block content %}
+<section class="page-title"><p class="eyebrow">Your selection</p><h1>Your cart</h1></section>
+{% if lines %}
+  <div class="cart-layout"><section class="cart-lines">
+  {% for line in lines %}
+    <article class="cart-line"><a class="cart-art art-{{ line.product.id }}" href="{{ url_for('product_detail', product_id=line.product.id) }}">{{ line.product.image_label }}</a><div class="cart-product"><p class="category">{{ line.product.category }}</p><h2>{{ line.product.name }}</h2><p>{{ line.product.price_cents|money }} each</p></div><form class="quantity-form" method="post" action="{{ url_for('update_cart', product_id=line.product.id) }}"><label>Qty<input type="number" name="quantity" min="0" max="10" value="{{ line.quantity }}"></label><button type="submit" class="text-button">Update</button></form><p class="line-total">{{ line.line_total|money }}</p><form method="post" action="{{ url_for('remove_from_cart', product_id=line.product.id) }}"><button class="remove-button" type="submit" aria-label="Remove {{ line.product.name }}">×</button></form></article>
+  {% endfor %}
+  </section><aside class="order-summary"><h2>Order summary</h2><div><span>Subtotal</span><strong>{{ subtotal|money }}</strong></div><p>Shipping is calculated at checkout.</p><a class="button primary full" href="{{ url_for('checkout') }}">Checkout</a><a class="continue-link" href="{{ url_for('products') }}">Continue shopping</a></aside></div>
+{% else %}<div class="empty-state"><h2>Your cart is waiting</h2><p>Find a piece that feels like a good idea.</p><a class="button primary" href="{{ url_for('products') }}">Browse products</a></div>{% endif %}
+{% endblock %}

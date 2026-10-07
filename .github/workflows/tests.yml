@@ -26,6 +26,10 @@ jobs:
         run: |
           python -m playwright install --with-deps chromium firefox webkit
 
+      - name: Initialize test database
+        run: |
+          python reset_db.py
+
       - name: Run pytest suite
         run: |
           python -m pytest tests -v

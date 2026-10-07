@@ -1,2 +1,0 @@
-Tech Stack:
-Python + Flask + SQLite + simple HTML/CSS/JavaScript

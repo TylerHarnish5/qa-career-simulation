@@ -1,0 +1,13 @@
+BASE_URL = "http://127.0.0.1:5000"
+
+TEST_USERNAME = "alex.morgan"
+TEST_PASSWORD = "Welcome123!"
+
+SEARCH_TERM = "waxed"
+EXPECTED_SEARCH_PRODUCT = "Harbor Canvas Tote"
+
+TEST_PRODUCT_ID = 5
+TEST_PRODUCT_NAME = "Alpine Field Journal"
+
+CHECKOUT_PRODUCT_1_LINK = "WC"
+CHECKOUT_PRODUCT_2_LINK = "SS"

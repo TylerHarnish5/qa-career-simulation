@@ -1,4 +1,5 @@
 import sqlite3
+from decimal import Decimal, InvalidOperation
 from functools import wraps
 from pathlib import Path
 
@@ -111,8 +112,9 @@ def products():
     query = "SELECT * FROM products WHERE 1 = 1"
     parameters = []
     if search_term:
-        query += " AND LOWER(name) LIKE ?"
-        parameters.append(f"%{search_term.lower()}%")
+        query += " AND (LOWER(name) LIKE ? OR LOWER(description) LIKE ?)"
+        search_pattern = f"%{search_term.lower()}%"
+        parameters.extend([search_pattern, search_pattern])
     if selected_category:
         query += " AND category = ?"
         parameters.append(selected_category)
@@ -144,8 +146,11 @@ def add_to_cart(product_id):
         flash("That product is no longer available.", "error")
         return redirect(url_for("products"))
     try:
-        quantity = int(request.form.get("quantity", 1))
-    except ValueError:
+        entered_quantity = Decimal(request.form.get("quantity", "1"))
+        if entered_quantity != entered_quantity.to_integral_value():
+            raise ValueError
+        quantity = int(entered_quantity)
+    except (InvalidOperation, OverflowError, ValueError):
         quantity = 1
     if quantity < 1:
         flash("Choose at least one item.", "error")
@@ -195,7 +200,7 @@ def remove_from_cart(product_id):
 def shipping_cost(subtotal, method):
     if method == "express":
         return 1500
-    return 0 if subtotal > 5000 else 600
+    return 0 if subtotal >= 5000 else 600
 
 
 @app.route("/checkout", methods=["GET", "POST"])

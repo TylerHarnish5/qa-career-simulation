@@ -1,6 +1,51 @@
+# Python
 __pycache__/
 *.py[cod]
+
+# Testing / coverage
+.pytest_cache/
+.pytest_tmp/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# Playwright output
+test-results/
+playwright-report/
+blob-report/
+
+# Virtual environments
 .venv/
 venv/
-store.db
+env/
+ENV/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Flask / local runtime data
 instance/
+
+# SQLite local database
+store.db
+store.db-wal
+store.db-shm
+store.db-journal
+
+# IDE / editor
+.vscode/
+.idea/
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+#Personal files
+documents/documents (private)/

@@ -1,1 +1,5 @@
 Flask>=3.0,<4.0
+requests
+pytest
+pytest-playwright
+pytest-cov

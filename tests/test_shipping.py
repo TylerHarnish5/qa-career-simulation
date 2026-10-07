@@ -1,5 +1,4 @@
 from playwright.sync_api import Page, expect
-from torch import addr
 
 from tests.data_constants import (
     CHECKOUT_PRODUCT_1_LINK,

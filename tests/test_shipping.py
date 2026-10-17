@@ -11,7 +11,7 @@ def test_standard_shipping_is_free_at_exactly_50(logged_in_page: Page):
     # 1. Login 
     page = logged_in_page
 
-    # 2. Add products to cart to reach exactly $50
+    # 2. Add products to cart to reach exactly $50.00
     page.get_by_role("link", name=CHECKOUT_PRODUCT_1_LINK).click()
     page.get_by_role("button", name="Add to cart").click()
 
